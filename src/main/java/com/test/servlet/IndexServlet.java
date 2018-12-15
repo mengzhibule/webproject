@@ -16,23 +16,25 @@ public class IndexServlet extends HttpServlet {
         //获取调用的方法名
         String cmd = req.getParameter("cmd");
         //com.ss.action.IndexAction.action
-        String className = url.substring(url.lastIndexOf("/") + 1,url.lastIndexOf("."));
+        String className = url.substring(url.lastIndexOf("/") + 1, url.lastIndexOf("."));
         //返回结果
         String result = "";
-        if(null != className && !"".equals(className)) try {
-            Class<?> cla = Class.forName(className);
-            Object obj = cla.newInstance();
-            Object value = cla.getMethod(cmd).invoke(obj);
-            if(null != value){
-                result = value.toString();
+        if (null != className && !"".equals(className)) {
+            try {
+                Class<?> cla = Class.forName(className);
+                Object obj = cla.newInstance();
+                Object value = cla.getMethod(cmd).invoke(obj);
+                if (null != value) {
+                    result = value.toString();
+                }
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+                e.printStackTrace();
             }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-            e.printStackTrace();
         }
 
         PrintWriter out = resp.getWriter();
         out.write(result);
-        if(out != null){
+        if (out != null) {
             out.close();
         }
     }
