@@ -21,9 +21,9 @@ public class CommonDao {
     private static ThreadLocal<List<CommonDao>> daosLocal = new ThreadLocal<>();
 
     private CommonDao() {
-        String url = "jdbc:mysql://192.168.129.128:3306/blog";
+        String url = "jdbc:mysql://192.168.129.15:3306/blog";
         String username = "root";
-        String password = "Gepoint";
+        String password = "11111";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, password);
